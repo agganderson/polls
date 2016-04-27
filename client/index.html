@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang='en' ng-app='pollsApp'>
+<head>
+	<title>Polls</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-route.min.js"></script>
+
+	<script type="text/javascript">
+		var pollsApp = angular.module('pollsApp', ['ngRoute']);
+		pollsApp.config(function($routeProvider){
+			$routeProvider
+				.when('/login', {
+					templateUrl: 'partials/login.html'
+				})
+				.when('/dashboard', {
+					templateUrl: 'partials/dashboard.html'
+				})
+				.when('/create', {
+					templateUrl: 'partials/create.html'
+				})
+				.when('/poll/:id', {
+					templateUrl: 'partials/poll.html'
+				})
+				.otherwise({
+					redirectTo: '/'
+				});
+		});
+
+		//USER CONTROLLER
+		pollsApp.controller('userCtrl', function($scope, $location, $routeParams, userFact){
+			$scope.current_users = [];
+
+			$scope.loginUser = function(data){
+				userFact.login($scope.newUser, function(data){
+					$scope.current_users = data;
+				});
+
+				$scope.Newuser = {};
+				$location.path('/dashboard');
+			}
+		});
+
+		//DASHBOARD CONTROLLER
+		pollsApp.controller('dashCtrl', function($scope, $location, $routeParams, userFact, pollFact){
+			$scope.current_user = [];
+			$scope.polls = [];
+
+			pollFact.index(function(data){
+				$scope.polls = data;
+				// console.log($scope.polls[0]._id);
+			});
+
+			userFact.get_user(function(info){
+				$scope.current_user = info
+				// console.log($scope.current_user[0]);
+			});
+		});
+
+		//POLL CONTROLLER
+		pollsApp.controller('pollCtrl', function($scope, $location, $routeParams, userFact, pollFact){
+			$scope.current_user = [];
+			$scope.polls = [];
+
+			userFact.get_user(function(info){
+				// console.log(info[0].name);
+				$scope.current_user = info;
+			});
+
+			$scope.addPoll = function(data){
+				// console.log('hit addPoll in polls controller');
+				pollFact.create($scope.newPoll, function(data){
+					$scope.polls = data;
+					// console.log($scope.polls);
+				});
+				$scope.newPoll = {};
+			}
+
+		});
+
+		//POLL ID CONTROLLER
+		pollsApp.controller('pollidCtrl', function($scope, $location, $routeParams, pollFact){
+			$scope.poll = [];
+			console.log('in polls id controller');
+			pollFact.get_poll(function(data){
+				$scope.poll = data;
+				console.log('hello');
+			});
+		});
+
+		//USER FACTORY
+		pollsApp.factory('userFact', function($http){
+			var factory = {};
+			var current_users = [];
+
+
+			factory.login = function(info, callback){
+				current_users.push(info);
+				callback(current_users);
+			}
+
+			factory.get_user = function(callback){
+				callback(current_users);
+			}
+
+			return factory;
+		});
+
+		//POLLS FACTORY
+		pollsApp.factory('pollFact', function($http){
+			var factory = {};
+			var polls = [];
+
+			factory.index = function(callback){
+				$http.get('/polls').success(function(output){
+					polls = output;
+					callback(polls);
+				});
+			}
+
+			factory.create = function(info, callback){
+				// console.log('hit create in polls factory');
+				$http.post('/polls', info).success(function(output){
+					// console.log(output);
+					polls.push(output);
+					// console.log(polls);
+					factory.index(callback);
+					callback();
+				})
+			}
+
+			factory.get_poll = function(id, callback){
+				$http.get('/polls/' + id).success(function(output){
+					poll = output;
+					console.log(poll);
+					callback(poll);
+				});
+			}
+			return factory;
+		})
+
+	</script>
+</head>
+<body>
+	<div class='container'>
+		<h1>Welcome to the Polls!</h1>
+		<a href="#/login">Login</a>
+		<br>
+		<div ng-view=''>
+		</div>
+	</div>
+</body>
+</html>

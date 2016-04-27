@@ -1,0 +1,23 @@
+<div ng-controller="dashCtrl">
+	<h1>Hello {{current_user[0].name}}</h1>
+	<a href="#/create">Create a Poll</a> || <a href="#">Logout</a>
+	<br>
+	<br>
+	<h2>Current Polls:</h2>
+	<table class="table table-bordered">
+	    <thead>
+	      <tr>
+	        <th>Name:</th>
+	        <th>Poll Question:</th>
+	        <th>Date Posted:</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr ng-repeat="poll in polls">
+	        <td ng-bind="poll.user"></td>
+	        <td><a href="#/poll/{{poll._id}}">{{poll.question}}</a></td>
+	        <td ng-bind="poll.created_at | date: 'MM/dd/yyyy'"></td>
+	      </tr>
+	    </tbody>
+	</table>
+</div>
