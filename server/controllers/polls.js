@@ -29,9 +29,8 @@ module.exports = (function(){
 			});
 		},
 		get_poll: function(req, res){
-			console.log('SUP');
+			// console.log('SUP');
 			Poll.findOne({_id:req.params.id}, function(err, results){
-				console.log({_id:req.params.id});
 				if(err){
 					console.log('Could not get that poll', results);
 				}
@@ -40,6 +39,29 @@ module.exports = (function(){
 					res.json(results);
 				}
 			});
+		},
+		getThisPoll: function(req, res){
+			// console.log('SUP');
+			Poll.findOne({_id:req.params.id}, function(err, results){
+				if(err){
+					console.log('Could not get that poll', results);
+				}
+				else {
+					console.log('GOT IT');
+					res.json(results);
+				}
+			});
+		},
+		upOption1Vote: function(req, res){
+			Poll.findOneAndUpdate({_id: req.params.id}, {$inc: {option1vote: 1}}, function(err, results){
+				if(err){
+					console.log('Error in upping vote');
+				}
+				else {
+					console.log('Upped the vote!');
+					res.json(results);
+				}
+			})
 		}
 	}
 })();

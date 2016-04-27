@@ -89,11 +89,27 @@
 		//POLL ID CONTROLLER
 		pollsApp.controller('pollidCtrl', function($scope, $location, $routeParams, pollFact){
 			$scope.poll = [];
-			console.log('in polls id controller');
-			pollFact.get_poll(function(data){
+			$scope.option1vote = 0;
+			// console.log('in polls id controller');
+			
+			$scope.get_poll = function(id){
+				var location = '/poll/' + id;
+				$location.path(location);
+			}
+
+			pollID = $routeParams.id
+			pollFact.getThisPoll(pollID, function(data){
 				$scope.poll = data;
-				console.log('hello');
+				// console.log($scope.poll);
 			});
+
+			$scope.addVote1 = function(id){
+				console.log('in upOption1Vote controller');
+				pollFact.upOption1Vote(id, function(data){
+					$scope.option1vote = data
+				});
+			}
+			
 		});
 
 		//USER FACTORY
@@ -139,11 +155,25 @@
 
 			factory.get_poll = function(id, callback){
 				$http.get('/polls/' + id).success(function(output){
-					poll = output;
-					console.log(poll);
-					callback(poll);
+					// polls = output;
+					// console.log(polls);
+					callback(output);
 				});
 			}
+
+			factory.getThisPoll = function(id, callback){
+				$http.get('/getPoll/' + id).success(function(output){
+					callback(output);
+				});
+			}
+
+			factory.upOption1Vote = function(id, callback){
+				console.log('in upOption1Vote factory');
+				$http.post('/upOption1Vote/' + id).success(function(output){
+					callback(output);
+				});
+			}
+
 			return factory;
 		})
 
