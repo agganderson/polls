@@ -61,7 +61,40 @@ module.exports = (function(){
 					console.log('Upped the vote!');
 					res.json(results);
 				}
-			})
+			});
+		},
+		upOption2Vote: function(req, res){
+			Poll.findOneAndUpdate({_id: req.params.id}, {$inc: {option2vote: 1}}, function(err, results){
+				if(err){
+					console.log('Error in upping vote');
+				}
+				else {
+					console.log('Upped vote!!');
+					res.json(results);
+				}
+			});
+		},
+		upOption3Vote: function(req, res){
+			Poll.findOneAndUpdate({_id: req.params.id}, {$inc: {option3vote: 1}}, function(err, results){
+				if(err){
+					console.log('Error in upping vote');
+				}
+				else {
+					console.log('UPPED VOTE');
+					res.json(results);
+				}
+			});
+		},
+		upOption4Vote: function(req, res){
+			Poll.findOneAndUpdate({_id: req.params.id}, {$inc: {option4vote: 1}}, function(err, results){
+				if(err){
+					console.log('Error in upping vote');
+				}
+				else {
+					console.log('UPPED VOTE');
+					res.json(results);
+				}
+			});
 		}
 	}
 })();

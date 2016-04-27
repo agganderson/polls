@@ -61,7 +61,7 @@
 
 			userFact.get_user(function(info){
 				$scope.current_user = info[0].name;
-				console.log($scope.current_user);
+				// console.log($scope.current_user);
 				// console.log(info[0].name);
 			});
 
@@ -87,6 +87,7 @@
 					// console.log($scope.polls);
 				});
 				$scope.newPoll = {};
+				$location.path('/dashboard');
 			}
 
 		});
@@ -114,9 +115,44 @@
 			});
 
 			$scope.addVote1 = function(id){
-				console.log('in upOption1Vote controller');
+				// console.log('in upOption1Vote controller');
 				pollFact.upOption1Vote(id, function(data){
-					$scope.option1vote = data
+					$scope.option1vote = data;
+
+					pollFact.getThisPoll(pollID, function(vote){
+						$scope.poll = vote;
+				// console.log($scope.poll);
+					});
+				});
+			}
+
+			$scope.addVote2 = function(id){
+				pollFact.upOption2Vote(id, function(data){
+					$scope.option2vote = data;
+
+					pollFact.getThisPoll(pollID, function(vote){
+						$scope.poll = vote;
+					});
+				});
+			}
+
+			$scope.addVote3 = function(id){
+				pollFact.upOption3Vote(id, function(data){
+					$scope.option3vote = data;
+
+					pollFact.getThisPoll(pollID, function(vote){
+						$scope.poll = vote;
+					});
+				});
+			}
+
+			$scope.addVote4 = function(id){
+				pollFact.upOption4Vote(id, function(data){
+					$scope.option4vote = data;
+
+					pollFact.getThisPoll(pollID, function(vote){
+						$scope.poll = vote;
+					});
 				});
 			}
 			
@@ -178,8 +214,26 @@
 			}
 
 			factory.upOption1Vote = function(id, callback){
-				console.log('in upOption1Vote factory');
+				// console.log('in upOption1Vote factory');
 				$http.post('/upOption1Vote/' + id).success(function(output){
+					callback(output);
+				});
+			} 
+
+			factory.upOption2Vote = function(id, callback){
+				$http.post('/upOption2Vote/' + id).success(function(output){
+					callback(output);
+				});
+			}
+
+			factory.upOption3Vote = function(id, callback){
+				$http.post('/upOption3Vote/' + id).success(function(output){
+					callback(output);
+				});
+			}
+
+			factory.upOption4Vote = function(id, callback){
+				$http.post('/upOption4Vote/' + id).success(function(output){
 					callback(output);
 				});
 			}

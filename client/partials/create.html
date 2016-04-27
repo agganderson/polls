@@ -2,7 +2,7 @@
 	<h1>Hello {{current_user}}</h1> <a href="#/dashboard">Cancel</a> || <a href="/" ng-click="logout()">Logout</a>
 	<h1>Enter your questions and options here!</h1> 
 	<form class="form-horizontal" role="form">
-		<input type="hidden" ng-value="current_user" ng-model="newPoll.user">
+		<input type="hidden" ng-value="newPoll.user=current_user">
 	  <div class="form-group">
 	    <label class="control-label col-sm-2" for="question">Question:</label>
 	    <div class="col-sm-10">

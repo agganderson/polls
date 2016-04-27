@@ -24,4 +24,19 @@ module.exports = function(app){
 		console.log('in upOption1Vote route');
 		polls.upOption1Vote(req, res, req.params.id);
 	});
+
+	app.post('/upOption2Vote/:id', function(req, res){
+		console.log('in upOption2Vote route');
+		polls.upOption2Vote(req, res, req.params.id);
+	});
+
+	app.post('/upOption3Vote/:id',  function(req, res){
+		console.log('in upOption3Vote route');
+		polls.upOption3Vote(req, res, req.params.id);
+	});
+
+	app.post('/upOption4Vote/:id', function(req, res){
+		console.log('in upOption4Vote route');
+		polls.upOption4Vote(req, res, req.params.id);
+	});	
 }

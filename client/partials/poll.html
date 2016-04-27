@@ -1,5 +1,5 @@
 <div ng-controller="pollidCtrl">
-	<h2 ng-bind="poll.question"></h2>
+	<h2>{{poll.user}} asks, {{poll.question}}</h2>
 	<h4>Ok {{current_user[0].name}}, vote!</h4>
 	  <table class="table table-striped">
 	    <thead>
@@ -13,22 +13,22 @@
 	      <tr>
 	        <td ng-bind="poll.option1"></td>
 	        <td ng-bind="poll.option1vote"></td>
-	        <td><button class="btn btn-primary btn-sm" ng-click-"addVote1(poll._id)">Vote</button></td>
+	        <td><button class="btn btn-primary btn-sm" ng-click="addVote1(poll._id)">Vote</button></td>
 	      </tr>
 	      <tr>
 	        <td ng-bind="poll.option2"></td>
 	        <td ng-bind="poll.option2vote"></td>
-	        <td><button class="btn btn-primary btn-sm" ng-click-"addVote2(poll._id)">Vote</button></td>
+	        <td><button class="btn btn-primary btn-sm" ng-click="addVote2(poll._id)">Vote</button></td>
 	      </tr>
 	      <tr>
 	        <td ng-bind="poll.option3"></td>
 	        <td ng-bind="poll.option3vote"></td>
-	        <td><button class="btn btn-primary btn-sm" ng-click-"addVote3(poll._id)">Vote</button></td>
+	        <td><button class="btn btn-primary btn-sm" ng-click="addVote3(poll._id)">Vote</button></td>
 	      </tr>
 	      <tr>
 	        <td ng-bind="poll.option4"></td>
 	        <td ng-bind="poll.option4vote"></td>
-	        <td><button class="btn btn-primary btn-sm" ng-click-"addVote4(poll._id)">Vote</button></td>
+	        <td><button class="btn btn-primary btn-sm" ng-click="addVote4(poll._id)">Vote</button></td>
 	      </tr>
 	    </tbody>
 	  </table>
