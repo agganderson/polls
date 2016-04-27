@@ -68,6 +68,34 @@
 			$scope.logout = function(){
 				$scope.current_user = "";
 			}
+
+			$scope.deletePoll = function(id){
+				console.log('delete poll controller');
+				pollFact.delete(id, function(){
+
+					pollFact.index(function(data){
+						$scope.polls = data;
+					});
+				});
+				// if(user === $scope.current_user){
+					// console.log('checking if user is current_user')
+				// 	pollFact.delete(function(data){
+				// 		$scope.polls = data;
+				// 	});
+				// }
+				// else {
+				// 	$location.path('/dashboard');
+				// }
+			}
+
+			// $scope.checkUser = function(user){
+			// 	if(user != $scope.current_user){
+			// 		return true;
+			// 	}
+			// 	else {
+			// 		return false;
+			// 	}
+			// }
 		});
 
 		//POLL CONTROLLER
@@ -234,6 +262,14 @@
 
 			factory.upOption4Vote = function(id, callback){
 				$http.post('/upOption4Vote/' + id).success(function(output){
+					callback(output);
+				});
+			}
+
+			factory.delete = function(id, callback){
+				console.log('in delete poll factory');
+				$http.post('/deletePoll/' + id).success(function(output){
+					console.log('back from route and back end delete poll');
 					callback(output);
 				});
 			}

@@ -38,5 +38,10 @@ module.exports = function(app){
 	app.post('/upOption4Vote/:id', function(req, res){
 		console.log('in upOption4Vote route');
 		polls.upOption4Vote(req, res, req.params.id);
+	});
+
+	app.post('/deletePoll/:id', function(req, res){
+		console.log('in deletePoll route');
+		polls.deletePoll(req, res, req.params.id);
 	});	
 }

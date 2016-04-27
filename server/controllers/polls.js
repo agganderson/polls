@@ -95,6 +95,18 @@ module.exports = (function(){
 					res.json(results);
 				}
 			});
+		},
+		deletePoll: function(req, res){
+			console.log('in deletePoll function');
+			Poll.findOneAndRemove({_id: req.params.id}, function(err, results){
+				if(err){
+					console.log('Error in deleting that poll', results);
+				}
+				else {
+					console.log('Deleted the poll!!');
+					res.json(results);
+				}
+			});
 		}
 	}
 })();
