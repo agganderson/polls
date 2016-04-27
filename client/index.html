@@ -63,6 +63,10 @@
 				$scope.current_user = info
 				// console.log($scope.current_user[0]);
 			});
+
+			$scope.logout = function(){
+				$scope.current_user = "";
+			}
 		});
 
 		//POLL CONTROLLER
@@ -87,10 +91,15 @@
 		});
 
 		//POLL ID CONTROLLER
-		pollsApp.controller('pollidCtrl', function($scope, $location, $routeParams, pollFact){
+		pollsApp.controller('pollidCtrl', function($scope, $location, $routeParams, pollFact, userFact){
 			$scope.poll = [];
+			$scope.current_user = [];
 			$scope.option1vote = 0;
 			// console.log('in polls id controller');
+			userFact.get_user(function(info){
+				// console.log(info[0].name);
+				$scope.current_user = info;
+			});
 			
 			$scope.get_poll = function(id){
 				var location = '/poll/' + id;

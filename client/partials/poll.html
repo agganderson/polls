@@ -1,5 +1,6 @@
 <div ng-controller="pollidCtrl">
 	<h2 ng-bind="poll.question"></h2>
+	<h4>Ok {{current_user[0].name}}, vote!</h4>
 	  <table class="table table-striped">
 	    <thead>
 	      <tr>
@@ -31,5 +32,5 @@
 	      </tr>
 	    </tbody>
 	  </table>
-	  <a href="#/dashboard">Polls!</a>
+	  <a href="#/dashboard">Polls!</a> || <a href="/" ng-click="logout()">Logout</a>
 </div>
