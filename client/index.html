@@ -70,7 +70,7 @@
 			}
 
 			$scope.deletePoll = function(id){
-				console.log('delete poll controller');
+				// console.log('delete poll controller');
 				pollFact.delete(id, function(){
 
 					pollFact.index(function(data){
@@ -267,9 +267,9 @@
 			}
 
 			factory.delete = function(id, callback){
-				console.log('in delete poll factory');
+				// console.log('in delete poll factory');
 				$http.post('/deletePoll/' + id).success(function(output){
-					console.log('back from route and back end delete poll');
+					// console.log('back from route and back end delete poll');
 					callback(output);
 				});
 			}

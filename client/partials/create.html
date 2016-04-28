@@ -1,36 +1,51 @@
 <div ng-controller="pollCtrl">
-	<h1>Hello {{current_user}}</h1> <a href="#/dashboard">Cancel</a> || <a href="/" ng-click="logout()">Logout</a>
-	<h1>Enter your questions and options here!</h1> 
-	<form class="form-horizontal" role="form">
+	
+	<h1>Ok, {{current_user}}, enter your question and options here!</h1> 
+	<form class="form-horizontal" role="form" name="createform">
 		<input type="hidden" ng-value="newPoll.user=current_user">
 	  <div class="form-group">
+	    	<div role="alert">
+				<span class="error" ng-show="createform.question.$error.minlength">Question is too short! Needs at least 8 characters.</span>
+			</div>
 	    <label class="control-label col-sm-2" for="question">Question:</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" id="question" placeholder="Enter your question" ng-model="newPoll.question">
+	      <input type="text" class="form-control" name="question" placeholder="Enter your question" ng-model="newPoll.question" ng-minlength="8">
 	    </div>
 	  </div>
 	  <div class="form-group">
+	    	<div role="alert">
+				<span class="error" ng-show="createform.option1.$error.minlength">Option is too short! Needs at least 3 characters.</span>
+			</div>
 	    <label class="control-label col-sm-2" for="option">Option 1:</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" id="option" placeholder="Enter your first option" ng-model="newPoll.option1">
+	      <input type="text" class="form-control" name="option1" placeholder="Enter your first option" ng-model="newPoll.option1" ng-minlength="3">
 	    </div>
 	  </div>
 	  <div class="form-group">
+	    	<div role="alert">
+				<span class="error" ng-show="createform.option2.$error.minlength">Option is too short! Needs at least 3 characters.</span>
+			</div>
 	    <label class="control-label col-sm-2" for="option">Option 2:</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" id="option" placeholder="Enter your first option" ng-model="newPoll.option2">
+	      <input type="text" class="form-control" name="option2" placeholder="Enter your first option" ng-model="newPoll.option2" ng-minlength="3">
 	    </div>
 	  </div>
 	  <div class="form-group">
+	    	<div role="alert">
+				<span class="error" ng-show="createform.option3.$error.minlength">Option is too short! Needs at least 3 characters.</span>
+			</div>
 	    <label class="control-label col-sm-2" for="option">Option 3:</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" id="option" placeholder="Enter your first option" ng-model="newPoll.option3">
+	      <input type="text" class="form-control" name="option3" placeholder="Enter your first option" ng-model="newPoll.option3" ng-minlength="3">
 	    </div>
 	  </div>
 	  <div class="form-group">
+	    	<div role="alert">
+				<span class="error" ng-show="createform.option4.$error.minlength">Option is too short! Needs at least 3 characters.</span>
+			</div>
 	    <label class="control-label col-sm-2" for="option">Option 4:</label>
 	    <div class="col-sm-10">
-	      <input type="text" class="form-control" id="option" placeholder="Enter your first option" ng-model="newPoll.option4">
+	      <input type="text" class="form-control" name="option4" placeholder="Enter your first option" ng-model="newPoll.option4" ng-minlength="3">
 	    </div>
 	  </div>
 	  <div class="form-group">
@@ -39,4 +54,6 @@
 	    </div>
 	  </div>
 	</form>
+	<br>
+	<a href="#/dashboard">Cancel</a> || <a href="/" ng-click="logout()">Logout</a>
 </div>
